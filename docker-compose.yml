@@ -1,0 +1,22 @@
+services:
+  helper-bot:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      - helper-db
+    command: yarn start:dev
+  helper-db:
+    image: postgres:17-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=$TYPEORM_USER
+      - POSTGRES_PASSWORD=$TYPEORM_PASS
+      - POSTGRES_DB=$TYPEORM_DB
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
