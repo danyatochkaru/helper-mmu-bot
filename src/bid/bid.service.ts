@@ -23,6 +23,7 @@ export class BidService {
 
   async getBid(filters?: {
     created?: createdFilters;
+    corpus?: BidEntity['corpus'];
     room?: BidEntity['room'];
   }) {
     const dateDecryption: Record<createdFilters, Date> = {
@@ -36,6 +37,7 @@ export class BidService {
         createdAt: !!filters.created
           ? MoreThanOrEqual(dateDecryption[filters.created])
           : undefined,
+        corpus: filters.corpus,
         room: filters.room,
       },
     });

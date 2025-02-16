@@ -6,3 +6,9 @@ async function bootstrap() {
 }
 
 bootstrap();
+
+/*
+changelist:
+chore: добавлен выбор корпуса
+fix: доработка функционала
+*/

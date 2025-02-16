@@ -11,6 +11,9 @@ export class BidEntity {
   id: string;
 
   @Column()
+  corpus: string;
+
+  @Column()
   room: string;
 
   @Column()
