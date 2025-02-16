@@ -3,7 +3,6 @@ import { FILLING_BID_WIZARD, MODERATORS, ROOMS_LIST } from '../app.constatnts';
 import { WizardContext } from 'telegraf/scenes';
 import { message } from 'telegraf/filters';
 import {
-  acceptKeyboard,
   belowsKeyboard,
   corpusKeyboard,
   floorsKeyboard,
@@ -229,29 +228,16 @@ export class BidWizard {
       return;
     }
 
-    const { data } = ctx.wizard.state as any;
-    const bidText = `Этаж: ${data.floor}\nТип помещения: ${data.belong}\nНомер помещения: ${data.corpus} | ${data.place}\nПроблема: ${data.problem}`;
-
     if (ctx.has(message('photo'))) {
       const [photo] = ctx.message.photo.toSorted(
         (a, b) => b.file_size - a.file_size,
       );
 
       (ctx.wizard.state as any).data.photo = photo;
-
-      await ctx.telegram.sendPhoto(ctx.message.chat.id, photo.file_id, {
-        caption: bidText,
-        reply_markup: acceptKeyboard.reply_markup,
-      });
-    } else {
-      await ctx.telegram.sendMessage(ctx.message.chat.id, bidText, {
-        reply_markup: acceptKeyboard.reply_markup,
-      });
     }
     ctx.wizard.next();
   }
 
-  @Hears(/отправить/i)
   @WizardStep(8)
   async sendBid(@Ctx() ctx: WizardContext) {
     const { data } = ctx.wizard.state as any;

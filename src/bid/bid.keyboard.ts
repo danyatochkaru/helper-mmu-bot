@@ -40,7 +40,3 @@ export const roomsKeyboard = (corpus: string, floor: string, belong: string) =>
 export const hideKeyboard = Markup.removeKeyboard();
 
 export const skipKeyboard = Markup.keyboard([Markup.button.text('Пропустить')]);
-
-export const acceptKeyboard = Markup.keyboard([
-  [Markup.button.text('Отправить'), Markup.button.text('Отмена')],
-]);
