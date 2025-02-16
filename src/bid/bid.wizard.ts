@@ -221,7 +221,7 @@ export class BidWizard {
   @On('photo')
   @Start()
   @WizardStep(7)
-  async summary(@Ctx() ctx: WizardContext) {
+  async sendBid(@Ctx() ctx: WizardContext) {
     if (ctx.has(message('text')) && ctx.message.text.startsWith('/')) {
       await this.processCommands(ctx, ctx.message.text);
 
@@ -235,11 +235,7 @@ export class BidWizard {
 
       (ctx.wizard.state as any).data.photo = photo;
     }
-    ctx.wizard.next();
-  }
 
-  @WizardStep(8)
-  async sendBid(@Ctx() ctx: WizardContext) {
     const { data } = ctx.wizard.state as any;
     const bidText = `Новая заявка\n\nЭтаж: ${data.floor}\nТип помещения: ${data.belong}\nНомер помещения: ${data.corpus} | ${data.place}\nПроблема: ${data.problem}`;
 
